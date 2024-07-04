@@ -17,6 +17,7 @@ const PhotoScreen = ({route, navigation}) => {
     try {
       const shareOptions = {
         title: 'Compartir foto',
+        message: 'Hola, me gustaría compartir esta foto con ustedes.',
         url: 'file://' + photo.uri,
       };
       await Share.share(shareOptions);
