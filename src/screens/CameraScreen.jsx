@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
-import {View, Button, StyleSheet, Alert} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Button,
+  StyleSheet,
+  PermissionsAndroid,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Camera,
   useCameraDevice,
@@ -17,8 +23,25 @@ const CameraScreen = ({navigation}) => {
   const [camera, setCamera] = useState(null);
   const dispatch = useDispatch();
   const device = useCameraDevice('back');
-
   const showToolTip = useToolTip();
+
+  const requestPermissions = async () => {
+    try {
+      const cameraPermission = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+      );
+
+      const locationPermission = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  useEffect(() => {
+    requestPermissions();
+  }, []);
 
   const takePicture = async () => {
     if (camera) {
@@ -53,7 +76,9 @@ const CameraScreen = ({navigation}) => {
         photo={true}
         ref={camera => setCamera(camera)}
       />
-      <Button title="Tomar Foto" onPress={takePicture} />
+
+      <TouchableOpacity style={styles.button} onPress={takePicture} />
+
       <ToolTip />
     </View>
   );
@@ -67,6 +92,21 @@ const styles = StyleSheet.create({
   },
   camera: {
     ...StyleSheet.absoluteFillObject,
+  },
+  button: {
+    position: 'absolute',
+    bottom: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#f2f2f2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
   },
 });
 

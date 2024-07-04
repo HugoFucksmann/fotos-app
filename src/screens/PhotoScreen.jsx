@@ -27,14 +27,21 @@ const PhotoScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Image source={{uri: 'file://' + photo.uri}} style={styles.image} />
-      <Text style={styles.text}>
+      <Image
+        source={{uri: 'file://' + photo.uri}}
+        style={[styles.image, styles.border]}
+      />
+      <Text style={[styles.textLocation, styles.border]}>
         Ubicación: {photo.location.latitude}, {photo.location.longitude}
       </Text>
       <TouchableOpacity style={styles.shareButton} onPress={handleShare}>
-        <Text style={styles.shareText}>Compartir esta foto!</Text>
+        <Text>Compartir esta foto!</Text>
       </TouchableOpacity>
-      <Button title="Volver" onPress={() => navigation.goBack()} />
+      <Button
+        color={'#a9cad1'}
+        title="Volver"
+        onPress={() => navigation.goBack()}
+      />
     </View>
   );
 };
@@ -49,15 +56,26 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '70%',
   },
-  text: {
+  textLocation: {
     marginVertical: 10,
     fontSize: 16,
+    padding: 8,
   },
   shareButton: {
     backgroundColor: '#b7c1c7',
     borderRadius: 8,
     padding: 10,
-    marginBottom: 10,
+    marginVertical: 10,
+    elevation: 3,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+  },
+  border: {
+    borderWidth: 2,
+    borderRadius: 6,
+    borderColor: '#a9cad1',
   },
 });
 

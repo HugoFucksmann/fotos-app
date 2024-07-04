@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {
   View,
@@ -9,12 +10,12 @@ import {
 
 const {width} = Dimensions.get('window');
 const numColumns = 3;
-const size = width / numColumns;
+const size = (width - 8 * numColumns) / numColumns;
 
 const PhotoGrid = ({photo, navigation}) => {
-  console.log('photo ', photo);
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Photo', {photo})}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Detalle de Foto', {photo})}>
       <View style={styles.photoContainer}>
         <Image source={{uri: 'file://' + photo.uri}} style={styles.photo} />
       </View>
@@ -26,10 +27,11 @@ const styles = StyleSheet.create({
   photoContainer: {
     width: size,
     height: size,
-    padding: 1,
+    padding: 4,
   },
   photo: {
     flex: 1,
+    borderRadius: 5,
   },
 });
 

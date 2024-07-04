@@ -19,11 +19,11 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     dispatch(loadPhotos());
   }, [dispatch]);
-  console.log('photos ', photos);
+
   return (
     <View style={styles.container}>
       <View style={styles.flatListContainer}>
-        <Text style={styles.title}>Photo Gallery</Text>
+        <Text style={styles.title}>Galeria de fotos</Text>
         {photos.length ? (
           <FlatList
             data={photos}
@@ -34,13 +34,14 @@ const HomeScreen = ({navigation}) => {
             numColumns={3}
           />
         ) : (
-          <Text style={styles.title}>No tienes fotos</Text>
+          <Text style={styles.subtitle}>No tienes fotos</Text>
         )}
       </View>
 
       <Button
+        color={'#a9cad1'}
         title="Tomar Foto"
-        onPress={() => navigation.navigate('Camera')}
+        onPress={() => navigation.navigate('Camara')}
       />
     </View>
   );
@@ -54,14 +55,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   flatListContainer: {
-    maxHeight: '80%',
+    maxHeight: '90%',
     flex: 1,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 
